@@ -1,0 +1,180 @@
+﻿openapi: 3.0.3
+
+info:
+  title: Alerta Segura API
+  description: API REST para reportar huecos y luminarias dañadas al municipio.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /reports:
+    get:
+      summary: Obtener todos los reportes
+      responses:
+        '200':
+          description: Lista de reportes
+
+    post:
+      summary: Crear un nuevo reporte
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        '201':
+          description: Reporte creado correctamente
+
+  /reports/{id}:
+    get:
+      summary: Obtener un reporte por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Reporte encontrado
+        '404':
+          description: Reporte no encontrado
+
+    put:
+      summary: Actualizar un reporte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        '200':
+          description: Reporte actualizado correctamente
+        '404':
+          description: Reporte no encontrado
+
+    delete:
+      summary: Eliminar un reporte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Reporte eliminado correctamente
+        '404':
+          description: Reporte no encontrado
+
+  /users:
+    get:
+      summary: Obtener todos los usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+
+    post:
+      summary: Crear un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Usuario creado correctamente
+
+  /users/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuario encontrado
+        '404':
+          description: Usuario no encontrado
+
+    put:
+      summary: Actualizar un usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuario actualizado correctamente
+        '404':
+          description: Usuario no encontrado
+
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuario eliminado correctamente
+        '404':
+          description: Usuario no encontrado
+
+components:
+  schemas:
+    Report:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: Hueco grande en la vía
+        location:
+          type: string
+          example: Bogotá, Calle 80
+        photo:
+          type: string
+          example: foto.jpg
+        status:
+          type: string
+          example: pending
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Valery Herrera
+        email:
+          type: string
+          example: usuario@example.com
